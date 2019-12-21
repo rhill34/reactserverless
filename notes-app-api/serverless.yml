@@ -1,3 +1,12 @@
+# Here we are adding our newly added create funcCon to the configuraCon.
+# We specify that it handles requests at the endpoint. This
+# pattern of using a single Lambda funcCon to respond to a single HTTP
+# event is very much like the Microservices architecture
+# (https://en.wikipedia.org/wiki/Microservices). We discuss this and a few
+# other patterns in the chapter on organizing Serverless Framework projects
+# (/chapters/organizing-serverless-projects.html). We set CORS support to
+# true. This is because our frontend is going to be served from a different domains
+
 # NOTE: update this with your service name
 service: notes-app-api
 
@@ -20,13 +29,33 @@ provider:
   # the following line. Also, make sure to not
   # commit your .env.
   #
-  #environment:
-  #  sampleEnvVar: ${env:SAMPLE_ENV_VAR}
+  environment:
+   tableName: notes
+
+  iamRoleStatements:
+    -Effects: Allow
+    Action: 
+    - dynamodb:DescribeTable
+    - dynamodb:Query
+    - dynamodb:Scan
+    - dynamodb:GetItem
+    - dynamodb:PutItem
+    - dynamodb:UpdateItem
+    - dynamodb:DeleteItem
+  Resource: "arn:aws:dynamodb:us-west-2:*:*"
 
 functions:
-  hello:
-    handler: handler.hello
+ # Defines an HTTP API endpoint that calls the main function in create.js
+ # - path: url path is /notes
+ # - method: POST request
+ # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
+ # domain api call
+ # - authorizer: authenticate using the AWS IAM role
+ create:
+    handler: create.main
     events:
       - http:
-          path: hello
-          method: get
+          path: notes
+          method: post
+          cors: true
+          authorizer: aws_iam
