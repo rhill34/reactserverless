@@ -12,7 +12,7 @@
 //         TableName: process.env.tableName,
 //         Item: {
 //             userId: event.requestContext.identity.cognitoIdentityId,
-//             noteId: uuid.v1(),
+//             notesId: uuid.v1(), <-----This was the Problem!!!!!!!
 //             content: data.content,
 //             attachment: data.attachment,
 //             createdAt: Date.now()
