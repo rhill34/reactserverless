@@ -10,7 +10,7 @@
 # NOTE: update this with your service name
 service: notes-app-api
 
-# Create an optimized package for our functions 
+# Create an optimized package for our functions
 package:
   individually: true
 
@@ -31,32 +31,43 @@ provider:
   #
 
   environment:
-   tableName: notes
+    tableName: notes
 
   iamRoleStatements:
     -Effects: Allow
-    Action: 
-    - dynamodb:DescribeTable
-    - dynamodb:Query
-    - dynamodb:Scan
-    - dynamodb:GetItem
-    - dynamodb:PutItem
-    - dynamodb:UpdateItem
-    - dynamodb:DeleteItem
+    Action:
+      - dynamodb:DescribeTable
+      - dynamodb:Query
+      - dynamodb:Scan
+      - dynamodb:GetItem
+      - dynamodb:PutItem
+      - dynamodb:UpdateItem
+      - dynamodb:DeleteItem
   Resource: "arn:aws:dynamodb:us-west-2:*:*"
 
 functions:
- # Defines an HTTP API endpoint that calls the main function in create.js
- # - path: url path is /notes
- # - method: POST request
- # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
- # domain api call
- # - authorizer: authenticate using the AWS IAM role
- create:
-    handler: create.main
-    events:
-      - http:
-          path: notes
-          method: post
-          cors: true
-          authorizer: aws_iam
+  # Defines an HTTP API endpoint that calls the main function in create.js
+  # - path: url path is /notes
+  # - method: POST request
+  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
+  # domain api call
+  # - authorizer: authenticate using the AWS IAM role
+create:
+  handler: create.main
+  events:
+    - http:
+        path: notes
+        method: post
+        cors: true
+        authorizer: aws_iam
+get:
+  handler: get.main
+  # Defines an HTTP API endpoint that calls the main function in get.js
+  # - path: url path is /notes/{id}
+  # - method: GET request
+  events:
+    -http:
+      path: notes/{id}
+      method: get
+      cors: true
+      authorizer: aws_iam
