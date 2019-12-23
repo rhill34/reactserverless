@@ -1,6 +1,6 @@
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
-import { config } from "aws-sdk";
+
 export async function main(event, context) {
     const data = JSON.parse(event.body);
     const params = {
@@ -10,7 +10,7 @@ export async function main(event, context) {
         // - 'noteId': path parameter
         Key: {
             userId:
-                event.requestContext.identity.cognitoIdentityId, noteId: event.pathParameters.id
+                event.requestContext.identity.cognitoIdentityId, notesId: event.pathParameters.id
         },
         UpdateExpression: "SET content = :content, attachment = :attachment",
         ExpressionAttributeValues: {
