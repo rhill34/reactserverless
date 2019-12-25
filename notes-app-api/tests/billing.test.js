@@ -1,4 +1,5 @@
 // This should be straightForward. We are adding 3 tests. They are testing the different tiers of our pricing structure. We test the case where a user is trying to store 10, 100, and 101 notes. And comparing the calculated cost to the one we are expecting.
+
 import { calculateCost } from "../libs/billing-lib";
 test("Lowest tier", () => {
     const storage = 10;
