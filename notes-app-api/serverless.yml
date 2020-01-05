@@ -44,8 +44,8 @@ provider:
     tableName: ${self:custom.tableName}
     stripeSecretKey: ${env:STRIPE_SECRET_KEY}
 
-    iamRoleStatements:
-    - Effect: Allow
+  iamRoleStatements:
+    - Effect: 'Allow'
       Action:
         - dynamodb:DescribeTable
         - dynamodb:Query
@@ -58,6 +58,25 @@ provider:
       # the specific table for the stage
       Resource:
         - "Fn::GetAtt": [ NotesTable, Arn ]
+      # Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+      # Restrict our IAM role permissions to
+      # the specific table for the stage
+      # Resource: "arn:aws:dynamodb:us-west-2:*:*"
+      # this is building the following format: 
+      #arn:aws:dynamodb:us-west-2:
+      #AWS::AccountId:
+      #table/TABLE_NAME/index/*
+      # Resource:
+      #   Fn::Join:
+      #     - ''
+      #     -
+      #       - 'arn:aws:dynamodb:'
+      #       - Ref: AWS::Region
+      #       - ':'
+      #       - Ref: AWS::AccountId
+      #       - ':table/'
+      #       - ${self:custom.tableName}/
+      #       - 'index/*'
 
 functions:
   create:
