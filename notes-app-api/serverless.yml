@@ -1,5 +1,3 @@
-org: rhill34
-app: notes-demo-api
 # Here we are adding our newly added create funcCon to the configuraCon.
 # We specify that it handles requests at the endpoint. This
 # pattern of using a single Lambda funcCon to respond to a single HTTP
