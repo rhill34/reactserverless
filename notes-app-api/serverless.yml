@@ -25,7 +25,7 @@ custom:
   # Set the table name here so we can use it while testing locally
   tableName: ${self:custom.stage}-notes
   #To prevent accidentally deleting serverless resources
-  DeletionPolicy: Retain
+  # DeletionPolicy: Retain
 
 provider:
   name: aws
@@ -37,7 +37,7 @@ provider:
   # the following line. Also, make sure to not
   # commit your .env.
   #
-
+  deploymentBucket: sls-dep-bucket-001
   # These environment variables are made available to our functions
   # under process.env.
   environment:
