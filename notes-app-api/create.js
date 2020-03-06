@@ -38,7 +38,7 @@ export function main(event, context, callback) {
       const response = {
         statusCode: 500,
         headers: headers,
-        body: JSON.stringify({ status: false })
+        body: JSON.stringify({ status: false, params: params, error: error, data : data })
       };
       callback(null, response);
       return;
