@@ -1,6 +1,6 @@
 {
   "name": "reactserverless",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AWS and React app to demo to make a note app with serverless backend ",
   "main": "index.js",
   "scripts": {
