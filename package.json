@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/rhill34/reactserverless#readme",
   "devDependencies": {
-    "aws-sdk": "^2.595.0"
+    "aws-sdk": "^2.814.0"
   },
   "dependencies": {
     "uuid": "^3.3.3"
